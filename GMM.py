@@ -164,12 +164,15 @@ def score(weights, means, covariances, X):
     n_components = means.shape[0]
     log_likelihood = 0.0
 
+    # Calculate likelihood of X in Gaussian mixture.
     for x in X:
+        # Calculate likelihood of x in Gaussian mixture with n_components.
         p = 0.0
         for i in range(n_components):
             var = multivariate_normal(mean = means[i], cov = covariances[i])
-            p = var.pdf(x)
-        log_likelihood += np.log(p)
+            p += var.pdf(x)
+        if p != 0 :
+            log_likelihood += np.log(p)
 
     return log_likelihood
 
@@ -241,8 +244,13 @@ def test(models):
             for m in range(n_model):
                 p = score(models[m][0], models[m][1], models[m][2], X)
                 posterior.append(p)
-            
-            if posterior.index(max(posterior)) == i:
+
+            reco = posterior.index(max(posterior))
+
+            with open("debug.txt","a") as f:
+                f.writelines("%s is recognized as %d\n" %(url, reco))
+
+            if reco == i:
                 accuracy += 1
 
         accuracy /= 2
@@ -326,7 +334,7 @@ if __name__ == "__main__":
             mean, covariance = GMM(weights, means, covariances, X)
             '''
 
-            weights, means, covariances = choose_model(X, 11) 
+            weights, means, covariances = choose_model(X, 10) 
             print("The model of num %i has been trained." %i)
             models.append([])
             models[i].append(weights)
