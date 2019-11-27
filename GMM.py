@@ -4,8 +4,6 @@ calculate the posterior of last 2 samples for every number
 and choose the greatest one as result.
 '''
 # Author: Chen Xi <2017202068@ruc.edu.cn>
-
-
 # coding = UTF-8
 
 import numpy as np 
@@ -328,7 +326,7 @@ if __name__ == "__main__":
             mean, covariance = GMM(weights, means, covariances, X)
             '''
 
-            weights, means, covariances = choose_model(X, 6) 
+            weights, means, covariances = choose_model(X, 11) 
             print("The model of num %i has been trained." %i)
             models.append([])
             models[i].append(weights)
