@@ -1,1 +1,6 @@
 # GMM
+---
+This is an implementation of Gaussian mixture.
+But it hasn't been encased class, yet...
+Because I'm going to write HMM:)
+Maybe I'll complete these stuff after many many years...
